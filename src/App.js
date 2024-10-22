@@ -1,66 +1,40 @@
-import { useState } from 'react';
+import React, { useState } from "react";
 
-// Компоненты
-const Greeting = (props) => {
-  const {name, setName} = useState('');
-  return (
-    <div>
-      <h1>Hello, {props.name}!</h1>
-    </div>
-  );
-}
+const ValidaredForm = () => {
+  const [FormData, setFormaData] = useState({email: ""});
+  const [errors, setErrors] = useState({});
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <h2>{count}</h2>
-      <button onClick={() => setCount(count + 1)}>  
-        Увеличить
-      </button>
-      <button onClick={() => setCount(count - 1)}>  
-        Уменьшить
-      </button>
-      <button onClick={() => setCount(0)}>  
-        Обнулить
-      </button>
-    </div>
-  );
-}
-
-const UserInfo = (props) => {
-  const [name, setName] = useState(props.name);
-  const [age, setAge] = useState(props.age);
-  const [flag, setFlag] = useState(false);
-
-  const changeFlag = (e) => {
-    e.preventDefault();
-    setFlag(!flag);
+  const validate = () => {
+    const errors = {};
+    if (!FormData.email.includes("@")) {
+      errors.email = "Invalid email";
+    }
+    return errors;
   };
+
+  const hancdleChange = (e) => {
+    const { name, value } = e.target;
+    setFormaData({ ...prevData, [name]: value });
+  };
+
   return (
-    <div>
-      <button onClick={changeFlag}>Информация о авторе</button>
-      {
-          flag ? (
-            <div>
-              <h1>Имя: {name}</h1>
-              <h1>Возраст: {age}</h1>
-              <button onClick={() => {setAge(Math.floor(Math.random() * (70 - 20 + 1)) + 20)}}> Изменить возраст</button>
-            </div>
-          ) : null
-      }
-    </div>
-      
+    <form>
+      <label>
+        Name: <input type="text" value={Name} onChange={hancdleChange} />
+      </label>
+      <textarea onChange={(e) => setComment(e.target.value)}>
+
+      </textarea>
+      <h2>Name: {Name}</h2><h2>Comment: {comment}</h2>
+    </form>
   );
 }
 
 function App() {
   return (
-    <dev>
-      <Greeting name="Nikia" />
-      <Counter />
-      <UserInfo name="Nikia" age="17" />
-    </dev>
+    <>
+    <Form />
+    </>
   );
 }
 
